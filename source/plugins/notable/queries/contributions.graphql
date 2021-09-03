@@ -1,23 +1,30 @@
 query NotableContributions {
   user(login: "$login") {
-    repositoriesContributedTo($after first: $repositories, contributionTypes: COMMIT, orderBy: { field: STARGAZERS, direction: DESC }) {
-      edges {
-        cursor
-        node {
-          isInOrganization
-          owner {
-            login
-            avatarUrl
-          }
-          nameWithOwner
-          watchers {
-            totalCount
-          }
-          forks {
-            totalCount
-          }
-          stargazers {
-            totalCount
+    contributionsCollection {
+      pullRequestContributions($after first: $pr, orderBy: {direction: DESC}) {
+        edges {
+          cursor
+          node {
+            pullRequest {
+              repository {
+                isInOrganization
+                owner {
+                  login
+                  avatarUrl
+                }
+                nameWithOwner
+                watchers {
+                  totalCount
+                }
+                forks {
+                  totalCount
+                }
+                stargazers {
+                  totalCount
+                }
+              }
+              state
+            }
           }
         }
       }

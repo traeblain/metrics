@@ -4,30 +4,38 @@ export default function({faker, query, login = faker.internet.userName()}) {
   return /after: "MOCKED_CURSOR"/m.test(query)
     ? ({
       user:{
-        repositoriesContributedTo:{
-          edges:[],
+        contributionsCollection:{
+          pullRequestContributions:{
+            edges:[],
+          }
         },
       },
     })
     : ({
       user:{
-        repositoriesContributedTo:{
-          edges:[
-            {
-              cursor:"MOCKED_CURSOR",
-              node:{
-                isInOrganization:true,
-                owner:{
-                  login:faker.internet.userName(),
-                  avatarUrl:null,
+        contributionsCollection:{
+          pullRequestContributions:{
+            edges:[
+              {
+                cursor:"MOCKED_CURSOR",
+                node:{
+                  pullRequest:{
+                    repository:{
+                      isInOrganization:true,
+                      owner:{
+                        login:faker.internet.userName(),
+                        avatarUrl:null,
+                      },
+                      nameWithOwner:`${faker.internet.userName()}/${faker.lorem.slug()}`,
+                      stargazers:{totalCount:faker.datatype.number(1000)},
+                      watchers:{totalCount:faker.datatype.number(1000)},
+                      forks:{totalCount:faker.datatype.number(1000)},
+                    }
+                  }
                 },
-                nameWithOwner:`${faker.internet.userName()}/${faker.lorem.slug()}`,
-                stargazers:{totalCount:faker.datatype.number(1000)},
-                watchers:{totalCount:faker.datatype.number(1000)},
-                forks:{totalCount:faker.datatype.number(1000)},
               },
-            },
-          ],
+            ],
+          }
         },
       },
     })
