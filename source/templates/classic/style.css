@@ -56,7 +56,7 @@
   h1, h2, h3 {
     margin: 8px 0 2px;
     padding: 0;
-    color: #0366d6;
+    color: #5E81AC;
     font-weight: normal;
   }
   h1 svg, h2 svg, h3 svg {
@@ -1299,10 +1299,10 @@
   :root {
     --color-calendar-graph-day-bg: #ebedf0;
     --color-calendar-graph-day-border: rgba(27,31,35,0.06);
-    --color-calendar-graph-day-L1-bg: #9be9a8;
-    --color-calendar-graph-day-L2-bg: #40c463;
-    --color-calendar-graph-day-L3-bg: #30a14e;
-    --color-calendar-graph-day-L4-bg: #216e39;
+    --color-calendar-graph-day-L1-bg: #86B9F7;
+    --color-calendar-graph-day-L2-bg: #5C7FAA;
+    --color-calendar-graph-day-L3-bg: #5B7DA9;
+    --color-calendar-graph-day-L4-bg: #34475F;
     --color-calendar-halloween-graph-day-L1-bg: #ffee4a;
     --color-calendar-halloween-graph-day-L2-bg: #ffc501;
     --color-calendar-halloween-graph-day-L3-bg: #fe9600;
