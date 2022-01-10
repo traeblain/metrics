@@ -7,8 +7,9 @@
             return null
 
         //Load inputs
-        imports.metadata.plugins.discussions.inputs({data, account, q})
+        const {categories:_categories, "categories.limit":_categories_limit} = imports.metadata.plugins.discussions.inputs({data, account, q})
         const discussions = {categories:{}, upvotes:{discussions:0, comments:0}}
+        discussions.display = {categories:_categories ? {limit:_categories_limit || Infinity} : null}
 
         //Fetch general statistics
         const stats = Object.fromEntries(Object.entries((await graphql(queries.discussions.statistics({login}))).user).map(([key, value]) => [key, value.totalCount]))
@@ -33,7 +34,7 @@
           fetched.map(({upvoteCount}) => discussions.upvotes.discussions += upvoteCount)
 
           //Compute favorite category
-          for (const category of [...fetched.map(({category:{emoji, name}}) => `${imports.emoji.get(emoji)} ${name}`)])
+          for (const category of [...fetched.map(({category:{emoji, name}}) => `${imports.emoji.get(emoji) ?? emoji} ${name}`)])
             categories[category] = (categories[category] ?? 0) + 1
           const categoryEntries = Object.entries(categories).sort((a, b) => b[1] - a[1])
           discussions.categories.stats = Object.fromEntries(categoryEntries)
