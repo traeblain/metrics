@@ -70,7 +70,7 @@ export default async function({login, data, graphql, q, imports, queries, accoun
           .replace("#9be9a8", "var(--color-calendar-graph-day-L1-bg)")
           .replace("#40c463", "var(--color-calendar-graph-day-L2-bg)")
           .replace("#30a14e", "var(--color-calendar-graph-day-L3-bg)")
-          .replace("#216e39", "var(--color-calendar-graph-day-L4-bg)");
+          .replace("#216e39", "var(--color-calendar-graph-day-L4-bg)")
         svg += `
                     <g transform="translate(${j * -1.7}, ${j + (1 - ratio) * size})">
                       <path style="fill: ${day.color}" d="M1.7,2 0,1 1.7,0 3.4,1 z" />
