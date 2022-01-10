@@ -32,7 +32,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 <%= computed.calendar.length*15 %> 11" width="<%= computed.calendar.length*15 %>" height="16">
               <g>
                 <% for (const [x, {color}] of Object.entries(computed.calendar)) { %>
-                  <rect class="day" x="<%= x*15 %>" y="0" width="11" height="11" fill="<%= color %>" rx="2" ry="2" />
+                  <rect class="day" x="<%= x*15 %>" y="0" width="11" height="11" rx="2" ry="2" style="fill: <%= color.replace("#9be9a8", "var(--color-calendar-graph-day-L1-bg)").replace("#40c463", "var(--color-calendar-graph-day-L2-bg)").replace("#30a14e", "var(--color-calendar-graph-day-L3-bg)").replace("#216e39", "var(--color-calendar-graph-day-L4-bg)") %>;"/>
                 <% } %>
               </g>
             </svg>
