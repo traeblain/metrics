@@ -1,0 +1,15 @@
+name: Nord template
+extends: classic
+description: |
+  A template that converts to the Nord color palette.
+examples:
+  default: https://github.com/lowlighter/metrics/blob/examples/metrics.classic.svg
+index: 0
+supports:
+  - user
+  - organization
+formats:
+  - svg
+  - png
+  - jpeg
+  - json
