@@ -1,7 +1,6 @@
-name: 📗 Classic template
+name: Nord template
 description: |
-  A template mimicking GitHub visual identity.
-  This is also the default template.
+  A template that converts to the Nord color palette.
 examples:
   default: https://github.com/lowlighter/metrics/blob/examples/metrics.classic.svg
 index: 0
