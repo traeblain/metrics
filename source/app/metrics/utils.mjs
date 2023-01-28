@@ -1,15 +1,16 @@
 //Imports
 import octicons from "@primer/octicons"
+import twemojis from "@twemoji/parser"
 import axios from "axios"
 import processes from "child_process"
 import crypto from "crypto"
 import { minify as csso } from "csso"
 import * as d3 from "d3"
-import D3node from "d3-node"
 import emoji from "emoji-name-map"
 import { fileTypeFromBuffer } from "file-type"
 import fss from "fs"
 import fs from "fs/promises"
+import { JSDOM } from "jsdom"
 import linguist from "linguist-js"
 import { marked } from "marked"
 import minimatch from "minimatch"
@@ -27,14 +28,13 @@ import htmlsanitize from "sanitize-html"
 import sharp from "sharp"
 import git from "simple-git"
 import SVGO from "svgo"
-import twemojis from "twemoji-parser"
 import url from "url"
 import util from "util"
 import xmlformat from "xml-formatter"
 prism_lang()
 
 //Exports
-export { axios, d3, D3node, emoji, fetch, fs, git, minimatch, opengraph, os, paths, processes, sharp, url, util }
+export { axios, d3, emoji, fetch, fs, git, minimatch, opengraph, os, paths, processes, sharp, url, util }
 
 /**Returns module __dirname */
 export function __module(module) {
@@ -451,6 +451,9 @@ export async function imgb64(image, {width, height, fallback = true} = {}) {
   //Undefined image
   if (!image)
     return fallback ? "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcOnfpfwAGfgLYttYINwAAAABJRU5ErkJggg==" : null
+  //SVG image
+  if ((typeof image === "string") && (image.endsWith(".svg")))
+    return `data:image/svg+xml;base64,${Buffer.from(await fetch(image).then(response => response.arrayBuffer())).toString("base64")}`
   //Load image
   let ext = "png"
   try {
@@ -789,4 +792,27 @@ export async function gif({page, width, height, frames, x = 0, y = 0, repeat = t
   const result = await fs.readFile(path, "base64")
   await fs.unlink(path)
   return `data:image/gif;base64,${result}`
+}
+
+/**D3 node wrapper (loosely based on https://github.com/d3-node/d3-node)*/
+export class D3node {
+  constructor() {
+    this.jsdom = new JSDOM()
+    this.document = this.jsdom.window.document
+  }
+
+  get element() {
+    return d3.select(this.document.body)
+  }
+
+  createSVG(width, height) {
+    const svg = this.element.append("svg").attr("xmlns", "http://www.w3.org/2000/svg")
+    if ((width) && (height))
+      svg.attr("width", width).attr("height", height)
+    return svg
+  }
+
+  svgString() {
+    return this.element.select("svg").node()?.outerHTML || ""
+  }
 }
